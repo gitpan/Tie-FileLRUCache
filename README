@@ -5,6 +5,11 @@ Tie::FileLRUCache
  allowed to be references and objects as well as scalars. Requires 
  'Digest::SHA1' to be installed.
 
+Changes:
+    1.01 19991209 - Added detainting in internal cache maintaining 
+                    functions to evade Taint's overzealous tainting 
+                    of filenames read via readdir().
+
 To install:
 
 perl Makefile.PL

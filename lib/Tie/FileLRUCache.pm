@@ -14,11 +14,15 @@ use Class::ParmList;
 use vars qw (@ISA $VERSION);
 
 @ISA     = qw (Tie::Hash Class::NamedParms);
-$VERSION = "1.00";
+$VERSION = "1.01";
 
 =head1 NAME
 
 Tie::FileLRUCache - A lightweight but robust filesystem based persistent LRU cache 
+
+=head1 CHANGES
+
+1.01 19991209 Added 'detainting' to cache management code.
 
 =head1 SYNOPSIS
 
@@ -363,7 +367,13 @@ sub clear {
         $self->_unlock_cache;
         croak (__PACKAGE__ . "::clear - Failed to open directory '$cache_dir' for reading: $error\n");
     }
-    my (@file_list) = map { "$cache_dir/$_" } grep(/^cacheline_.*$/,readdir(CACHE_DIR));
+    my (@raw_file_list) = map { "$cache_dir/$_" } grep(/^cacheline_.*$/,readdir(CACHE_DIR));
+    # 'Taint' needs a talking to. It is _MUCH_ too aggressive.
+    my @file_list = ();
+    foreach my $item (@raw_file_list) {
+        my ($filename) = $item =~ m/^(.*)$/s;
+        push (@file_list,$filename);
+    }
     if( not closedir (CACHE_DIR)) {
         my $error = $!;
         $self->_unlock_cache;
@@ -480,7 +490,14 @@ sub update {
         $self->_unlock_cache;
         croak (__PACKAGE__ . "::update - Failed to open directory '$cache_dir' for reading: $error\n");
     }
-    my (@file_list) = map { "$cache_dir/$_" } grep(/^cacheline_.*$/,readdir(CACHE_DIR));
+    my (@raw_file_list) = map { "$cache_dir/$_" } grep(/^cacheline_.*$/,readdir(CACHE_DIR));
+    # 'Taint' needs a talking to. It is _MUCH_ too aggressive.
+    my @file_list = ();
+    foreach my $item (@raw_file_list) {
+        my ($filename) = $item =~ m/^(.*)$/s;
+        push (@file_list,$filename);
+    }
+
     closedir (CACHE_DIR)
         or croak (__PACKAGE__ . "::update - Failed to close directory '$cache_dir': $!\n");
 
@@ -492,6 +509,7 @@ sub update {
     # Yes. Delete the excess entries (usually only one)
     my %file_last_access = map { $_ => -A $_ } @file_list;
     @file_list =  sort { $file_last_access{$a} <=> $file_last_access{$b} } @file_list;
+
     for (my $count=$keep_last;$count<=$#file_list;$count++) {
         my $file = $file_list[$count];    
         if (not unlink $file) {
