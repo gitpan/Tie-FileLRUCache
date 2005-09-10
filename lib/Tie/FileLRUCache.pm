@@ -13,7 +13,7 @@ use Symbol qw (gensym);
 use vars qw ($VERSION);
 
 BEGIN {
-    $VERSION = "1.02";
+    $VERSION = "1.03";
 }
 
 ###########################################################################
@@ -23,6 +23,10 @@ BEGIN {
 Tie::FileLRUCache - A lightweight but robust filesystem based persistent LRU cache
 
 =head1 CHANGES
+
+1.03 2005.09.10   - Changed build test to handle difference in treatment of hashes
+                    in scalar contect between 5.6.x and 5.8.x versions of Perl that
+                    caused a test failure under Perl 5.6.x.
 
 1.02 2005.09.08   - Added build tests. Major code cleanup. Improved platform portability.
                     Added and documented 'cache_dir', 'keep_last' and 'number_of_entries'
@@ -986,7 +990,7 @@ FreeRun Technologies, Inc. (<URL:http://www.freeruntech.com/>). All Rights Reser
 
 =head1 VERSION
 
- 1.02 released 2005.09.08
+ 1.03 released 2005.09.10
 
 =head1 LICENSE
 

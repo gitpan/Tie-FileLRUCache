@@ -1,6 +1,6 @@
 ---
 name: Tie-FileLRUCache
-version: 1.02
+version: 1.03
 author:
   - Benjamin Franz <snowhare@nihongo.org>
 abstract: A lightweight but robust filesystem based persistent LRU cache
@@ -14,5 +14,5 @@ requires:
 provides:
   Tie::FileLRUCache:
     file: lib/Tie/FileLRUCache.pm
-    version: 1.02
+    version: 1.03
 generated_by: Module::Build version 0.261

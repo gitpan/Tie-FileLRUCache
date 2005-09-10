@@ -92,7 +92,8 @@ sub test_tied_cache {
 
     {
         my %cache = ();
-        unless (tie (%cache, 'Tie::FileLRUCache', test_directory(), 5)) {
+        my $cache_obj;
+        unless ($cache_obj = tie (%cache, 'Tie::FileLRUCache', test_directory(), 5)) {
                 diag("Cache tie failed");
                 return 0;
         }
@@ -137,9 +138,9 @@ sub test_tied_cache {
                 $cache{$item} = $test_items{$item};
                 sleep 1;
             }
-            my $entries_count = %cache;
+            my $entries_count = $cache_obj->number_of_entries;
             unless (5 == $entries_count) {
-                diag("Unexpected number of cache entries");
+                diag("Unexpected number of cache entries (expected 5, found $entries_count)");
                 return 0;
             }
             my $match_counter = 0;
@@ -162,10 +163,6 @@ sub test_tied_cache {
             while (my ($cache_key, $cache_value) = each %cache) {
                 diag("Iteration on tied hash returned results (should not)");
                 return 0;
-            }
-            my $scalar_context = %cache;
-            if ($scalar_context) {
-
             }
 
             %cache = ();
