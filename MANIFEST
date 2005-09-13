@@ -2,6 +2,7 @@ MANIFEST
 Makefile.PL
 Build.PL
 README
+Changes
 lib/Tie/FileLRUCache.pm
 t/01_Tie-FileLRUCache.t
 t/98_pod_coverage.t

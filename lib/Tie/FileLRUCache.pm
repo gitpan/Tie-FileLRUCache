@@ -1,7 +1,6 @@
 package Tie::FileLRUCache;
 
 use strict;
-use warnings;
 
 use Class::ParmList qw (simple_parms parse_parms);
 use Digest::SHA1 qw(sha1_hex);
@@ -13,7 +12,7 @@ use Symbol qw (gensym);
 use vars qw ($VERSION);
 
 BEGIN {
-    $VERSION = "1.03";
+    $VERSION = "1.04";
 }
 
 ###########################################################################
@@ -23,6 +22,9 @@ BEGIN {
 Tie::FileLRUCache - A lightweight but robust filesystem based persistent LRU cache
 
 =head1 CHANGES
+
+1.04 2005.09.13   - Removed use of 'warnings' to fix compatibility with Perl 5.005.
+                    Fixed minor typographical errors in documentation.
 
 1.03 2005.09.10   - Changed build test to handle difference in treatment of hashes
                     in scalar contect between 5.6.x and 5.8.x versions of Perl that
@@ -990,7 +992,7 @@ FreeRun Technologies, Inc. (<URL:http://www.freeruntech.com/>). All Rights Reser
 
 =head1 VERSION
 
- 1.03 released 2005.09.10
+ 1.04 released 2005.09.13
 
 =head1 LICENSE
 

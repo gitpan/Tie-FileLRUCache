@@ -1,5 +1,4 @@
 use strict;
-use warnings;
 
 use blib ('./blib','../blib');
 use lib ('./lib','../lib');
