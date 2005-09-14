@@ -12,7 +12,7 @@ use Symbol qw (gensym);
 use vars qw ($VERSION);
 
 BEGIN {
-    $VERSION = "1.04";
+    $VERSION = "1.05";
 }
 
 ###########################################################################
@@ -23,18 +23,21 @@ Tie::FileLRUCache - A lightweight but robust filesystem based persistent LRU cac
 
 =head1 CHANGES
 
-1.04 2005.09.13   - Removed use of 'warnings' to fix compatibility with Perl 5.005.
-                    Fixed minor typographical errors in documentation.
+ 1.05 2005.09.14   - Changes to pod tests to make them more CPANTS friendly.
+                     No functional changes.
 
-1.03 2005.09.10   - Changed build test to handle difference in treatment of hashes
-                    in scalar contect between 5.6.x and 5.8.x versions of Perl that
-                    caused a test failure under Perl 5.6.x.
+ 1.04 2005.09.13   - Removed use of 'warnings' to fix compatibility with Perl 5.005.
+                     Fixed minor typographical errors in documentation.
 
-1.02 2005.09.08   - Added build tests. Major code cleanup. Improved platform portability.
-                    Added and documented 'cache_dir', 'keep_last' and 'number_of_entries'
-                    methods. Added Module::Build support.
+ 1.03 2005.09.10   - Changed build test to handle difference in treatment of hashes
+                     in scalar contect between 5.6.x and 5.8.x versions of Perl that
+                     caused a test failure under Perl 5.6.x.
 
-1.01 1999.12.09   - Added 'detainting' to cache management code.
+ 1.02 2005.09.08   - Added build tests. Major code cleanup. Improved platform portability.
+                     Added and documented 'cache_dir', 'keep_last' and 'number_of_entries'
+                     methods. Added Module::Build support.
+
+ 1.01 1999.12.09   - Added 'detainting' to cache management code.
 
 =head1 SYNOPSIS
 
@@ -992,7 +995,7 @@ FreeRun Technologies, Inc. (<URL:http://www.freeruntech.com/>). All Rights Reser
 
 =head1 VERSION
 
- 1.04 released 2005.09.13
+ 1.05 released 2005.09.14
 
 =head1 LICENSE
 

@@ -2,18 +2,15 @@ use strict;
 
 use Test::More;
 
-use blib ('./blib','../blib');
-use lib  ('./lib', '../lib');
-eval "use Test::Pod::Coverage";
-if ( $@ ) {
-    plan skip_all => "Test::Pod::Coverage required for testing POD coverage";
+use lib  ('./blib','../blib', './lib', '../lib');
+
+eval {
+    require Test::Pod::Coverage;
+};
+if ($@ or (not defined $Test::Pod::Coverage::VERSION) or ($Test::Pod::Coverage::VERSION < 1.06)) {
+    plan skip_all => "Test::Pod::Coverage 1.06 required for testing POD coverage";
     exit;
 }
 
 plan tests => 1;
-
-pod_coverage_ok( 'Tie::FileLRUCache',
-    {
-        also_private => ['DEBUG','SCALAR']
-    }
-);
+Test::Pod::Coverage::pod_coverage_ok( 'Tie::FileLRUCache', { also_private => ['DEBUG', 'SCALAR'] });
